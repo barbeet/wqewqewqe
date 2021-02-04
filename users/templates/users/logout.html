@@ -1,0 +1,15 @@
+{% extends "users/base_lk.html" %}
+{% block tree_catalog_tree %}
+  <p><a href="{% url 'user:profile' %}" style="color:white;">Профиль </a> > Выход </p>
+{% endblock %}
+{% block tree_catalog_name %}
+  <h1 style="color: white">Выход </h1><p class="count_product_in_category"> </p>
+{% endblock %}
+{% block content %}
+
+<div class="border-top pt-3" style="margin: 40px">
+<h3>Вы вышли из аккаунта</h3>
+    <a href="{% url 'user:login' %}"><h3>Войти<h3></a>
+
+</div>
+{% endblock %}

@@ -1,0 +1,8 @@
+{% extends "articles/base_nv.html" %}
+{% load static %}
+{% block content %}
+<style>.content{width: 100%;max-width: 100%;flex-direction: column;}</style>
+<h2 style="margin:0 auto;color: #3790b7;"> Ваш вопрос был отправлен ожидайте ответ</h2>
+<a style="margin: 0 auto"href="{% url 'home' %}"><h3>Вернуться на главную страницу</h3></a>
+{% endblock %}
+

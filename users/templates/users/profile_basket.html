@@ -1,0 +1,69 @@
+{% extends "users/base_lk.html" %}
+{% load static %}
+{% block tree_catalog_tree %}
+  <p><a href="{% url 'user:profile' %}" style="color:white;">Профиль </a> > Корзина </p>
+{% endblock %}
+{% block tree_catalog_name %}
+  <h1 style="color: white">Корзина </h1><p class="count_product_in_category">  </p>
+{% endblock %}
+{% block content %}
+<style type="text/css">
+	.content{
+		margin-right: 1.5%;
+	}
+</style>
+<div class="test" style="width: 100%">
+	{% csrf_token %}
+<h4 style="margin:0 10px;">{{message}}</h4>
+{% if not user.is_authenticated %}
+<h5 style="margin: 10px 10px">Для оформления заказа авторизируйтесь на сайте</h5>
+{% endif%}
+<div class="product-in-basket-js">
+{% for object in objects %}
+<div class="product-in-basket" id="{{object.id_product}}">
+<img src="/media/{{object.product_thumb}}" style="margin:0 20px;" height="120px" width="120px"></a>
+<div class="name-product" style="max-width: 300px;width: 100%;">
+ <a href="/product/{{object.id_product}}"><h4>{{object.name_product}}</h4></a>
+</div>
+<div class="count-controll" style="max-width: 100px;width: 100%;">
+	<h4><button type="button" class="btn btn-success btn-lg btn-cus" id="-:{{object.id_product}}">-</button></h4>
+	<h4><div class='{{object.id_product}}'>{{object.product_count}}</div></h4>		
+	<h4><button type="button" class="btn btn-success btn-lg btn-cus" id="+:{{object.id_product}}">+</button></h4>
+	</div>
+	<h4 id="summ_count{{object.id_product}}" style="max-width: 200px;width: 100%;font-weight: normal;">Общая сумма: {{object.pruduct_count_sum}} ₽</h4>
+		  <div class="price_basket" style="display:flex;flex-direction: column;margin-right: 20px;width: 100px;">
+	    {% if object.product_discount == None %}
+  <h5 style="font-weight: normal;margin:-10px auto;">Цена:</h5>
+  <div style="display: flex;align-items: center;flex-direction: column;"><h4 style="font-weight: normal;"> {{object.product_price}} ₽</h4></div>
+  {% else %}
+  <h5 style="font-weight: normal;margin: 0 auto">Цена:</h5>
+  <div class="price_basket_setting" style="display: flex;align-items: center; flex-direction: column;"><h5 style="text-decoration:line-through;font-size: 90%;opacity: 0.5"> {{object.product_price}} ₽</h5> <h4 style="font-weight: normal;"> {{object.product_discount}} ₽</h4></div>
+  {% endif %}
+</div>
+<img class="btn btn-success btn-lg btn-cus" src="{% static 'delete.jpg' %}"  id="-all:{{object.id_product}}" height="30px" width="30px" style="margin: 10px;cursor: pointer;">
+</div>
+{% endfor %}
+</div>
+<div class="prolong-payment">
+<div class="prolog">
+
+	<div class="line" style="width: 250px;justify-content: space-between;">
+		<h4> Выбрано товара: </h4>
+		<h4><div id="basketpage">{{count}}</div></h4>
+	</div>
+
+	<div class="line" style="width: 250px;justify-content: space-between;">
+		<h4> На сумму: </h4>
+		<h4><div class="summ" id='summ'> {{summ}} </div></h4>
+		<h4> ₽</h4>
+	</div>
+
+     <form>
+      <button style=" margin:0 10px;background: #28a815; padding: 5px;color:white;border-radius: 8px;width:98%;border: 0;padding: 10px 20px;" type="button" onclick="window.location.href = 'http://aptekaopeka.ru/accounts/profile/new_order';" value="w3docs">  <h4 style="margin: 0">Оформить заказ</h4> </button>
+    </div>
+</div>
+
+    </form>
+	</div>
+
+{% endblock %}

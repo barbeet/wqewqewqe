@@ -1,0 +1,92 @@
+{% extends "users/base_lk.html" %}
+{% block tree_catalog_tree %}
+  <p><a href="{% url 'user:profile' %}" style="color:white;">Профиль </a> > Оформление заказа </p>
+{% endblock %}
+{% block tree_catalog_name %}
+  <h1 style="color: white"> Оформление заказа </h1><p class="count_product_in_category"> </p>
+{% endblock %}
+{% block content %}
+<style type="text/css">
+	.controls{
+		justify-content: space-between;
+		align-items: center;
+	}
+	.castom-input{
+		max-width: 300px;
+	}
+	.content{
+		flex-direction: column;
+		margin: 0 20px;
+	}
+</style>
+<div class="other-content">
+	{% if recipe %}
+	<div class="error" style="width: 100%" ><h4 style="margin: 0"><li> В вашем заказе обнаружен товар с рецептом, который не подтверждён, способ доставки возможен только - самовывоз из рук фармацефта, вы можете подтвердить рецепт в разделе QR рецeпт, продолжить оформление заказа или убрать товар с рецептом и воспользоватся другими способами доставки.</h4></li></div>
+	{% endif %}
+{% for i in products_recipe_confirmed %}
+<div class="recipe_true" style="width: 95%;height: 40px;background: #62e361; display: flex;align-items: center;padding: 0 20px;margin:10px 0;justify-content: space-between;"><h5>Имя товара: {{i.product_name}}, количество: {{i.product_count}}</h5><h5>РЕЦЕПТ ПОДТВЕРЖДЁН</h5></div>
+{% endfor %}
+<form class="form-blank" method="post">
+ {% csrf_token %}
+{% for i in products_recipe_notconfirmed %}
+<div class="recipe_true" style="width: 95%;height: 40px;background: #f94439;;; display: flex;align-items: center;padding: 0 20px;margin:10px 0;justify-content: space-between;"><h5>Имя товара: {{i.product_name}}, количество: {{i.product_count}}</h5><h5>РЕЦЕПТ НЕ ПОДТВЕРЖДЁН</h5></div>
+{% endfor %}
+<form method="post">
+ {% csrf_token %}
+<div style="display: flex; align-items: center;"><h4 class="order_inform_js"> Вего выбрано товара {{inform.count}}, на сумму {{inform.summ}} ₽  - </h4><a class="atctive_widjet" style="margin: 0 10px; cursor: pointer;"> корзина</a></div>
+
+<div style="display:flex;align-items: center; ;border-top: 1px solid #ddd;padding-top:10px;"><div class="number_in_order"><h4 style="margin: 0;"> 1</h4></div><h4 style="margin:0 10px;	"> Способ доставки</h4></div>
+
+<div class="box-checkbox"> 
+	{% for i in delivery %}
+	<div class="checkbox-item">
+		<label class="label_df">
+			<input style="height:17px;"  class="castom-input" type="radio" name="method_of_obtaining" value="{{i.name}}" required="" id="id_method_of_obtaining"> 
+		<h5>{{i.name}} + {{i.add_price}} ₽, от {{i.min_sum_price_order}} ₽</h5></label>
+	</div>
+	{% endfor %}
+</div>
+
+<div style="display:flex;align-items: center;border-top: 1px solid #ddd;padding-top:10px;"><div class="number_in_order"><h4 style="margin: 0;"> 2</h4></div><h4 style="margin:0 10px;	">Cпособ оплаты</h4></div>
+
+<div class="box-checkbox"> 
+	<div class="checkbox-item">
+		<label class="label_df">
+		<input style="height:17px;" class="sd-input" type="radio" name="payment_method" required="" value="Оплата на при получении" id="id_payment_method"> 
+		<h5>Оплата при получении</h5>
+		</label>
+	</div>
+	<div class="checkbox-item">
+		<label class="label_df">
+		<input style="height:17px;"  class="castom-input" type="radio" name="payment_method" value="Онлайн" required="" id="id_payment_method"> 
+		<h5>Онлайн</h5>
+		</label>
+	</div>	
+</div>
+
+<div style="display:flex;align-items: center;border-top: 1px solid #ddd;padding-top:10px; "><div class="number_in_order"><h4 style="margin: 0;"> 3</h4></div><h4 style="margin:0 10px;	">Телефон</h4></div>
+
+<div class="box-checkbox" style="margin: 20px 40px;"> 
+<input style="font-size: 20px;" class="phone_mask" type="text" name="contact" required="" id="id_contact" value="{{profile.username}}">
+</div>
+
+<div style="display:flex;align-items: center; ;border-top: 1px solid #ddd;padding-top: 10px	"><div class="number_in_order"><h4 style="margin: 0;"> 4</h4></div><h4 style="margin:0 10px;	">Адресс аптеки</h4></div>
+<div class="box-checkbox" style="margin: 20px 40px;"> 	
+<select style="background: white" class="" type="text" name="address" required="" id="id_address">
+	  <option>-</option>
+	{% for i in all_pharmacieaddress %}
+  <option style="font-size: 20px;">{{i.address}}</option>
+  {% endfor %}
+  
+</select>
+</div>
+ <button style="background: #28a815; margin-top: 25px;color:white;border-radius: 8px;border: 0;padding: 10px 20px;" type="submit">
+ <h4 style="margin: 0">Оформить заказ</h4></button>
+    
+  
+  </form>
+</div>
+<script>
+$(".phone_mask").mask("+7 (999) 999-99-99");
+</script>
+{% endblock %}

@@ -1,0 +1,173 @@
+{% extends "articles/base.html" %}
+{% load static %}
+{% block tree_catalog %}
+      <div class="inform_catalog">
+        <div class="inform_catalog_box">
+          <div class="top_inform_catalog">
+            {% block tree_catalog_tree %}
+            {% endblock %}
+          </div>
+          <div class="bot_inform_catalog">
+            {% block tree_catalog_name %}
+            {% endblock %}
+          </div>
+          </div>
+      </div>
+{% endblock %}
+{% block heading %}
+  <style>
+   .hover_help{
+    display: inline-block; /* Строчно-блочный элемент */
+    position: relative; /* Относительное позиционирование */
+   }
+   .hover_help:hover::after {
+    content: attr(data-title); /* Выводим текст */
+    position: absolute; /* Абсолютное позиционирование */
+    left: 100%;  /* Положение подсказки */
+    z-index: 1; /* Отображаем подсказку поверх других элементов */
+    background: rgba(255,255,230,0.9); /* Полупрозрачный цвет фона */
+    border-radius: 10px;
+    font-weight: initial;
+    font-family: Arial, sans-serif; /* Гарнитура шрифта */
+    font-size: 11px; /* Размер текста подсказки */
+    padding: 5px 10px; /* Поля */
+    border: 1px solid #333; /* Параметры рамки */
+    color:black;
+   }
+  </style>
+<div class="left-search-box">
+	<img src="{% static 'logo.png'%}" height="80px;" width="90px" >
+	<div class="element-category" style="margin: 0 20px;display: flex;align-items: center;padding: 0 10px;">
+				<h3>Категории</h3>
+				<img src="{% static 'images/icons8-menu-96.png'%}" height="25px;" width="25px">
+			</div>
+	<div class="left-search">
+<img src="{% static 'images/loop.png'%}" width="30px" style="margin-top: -3px;margin-right: 10px;">
+  <form action="{% url 'search_results' %}" method="get" class="search">
+
+    <input style="height: 25px;border: 0;padding: 0;padding-left:10px;border-radius: 10px;width: 100%;" name="q" type="text" placeholder=" Поиск товара ">
+    <button class="submit" style="height:100%;border-radius: 20px;padding:0 20px;background: #b2f765;border:0px;" type="submit"><h5 style="margin: 0 10px;">Поиск</h5></button>
+  </form>
+</div>
+</div>
+
+<div class="right-search-box">	
+	<a href="{% url 'products' %}">
+	<div class="element-search-box">
+  <div style="display: flex;align-items: center;justify-content:center;cursor: pointer;width: 60px" class="atctive_widjet1" ><img src="{% static 'images/icons8-pill-96.png'%}" height="45px;" width="45px"></img></div>
+  Товары
+</div>
+</a>
+<a href="{% url 'user:curret_orders' %}">
+<div class="element-search-box">
+  <div style="display: flex;align-items: center;justify-content:center;cursor: pointer;width: 60px" class="atctive_widjet" ><img src="{% static 'images/icons8-box-96.png'%}" height="45px;" width="45px"></img></div>
+  Заказы
+</div>
+</a>
+<a href="{% url 'user:basket' %}">
+<div class="element-search-box">
+  <a style="display: flex;align-items: center;cursor: pointer;width: 60px" class="atctive_widjet"><img src="{% static 'basket.png'%}" height="45px;" width="45px"><h5 style="background: yellow; padding: 0 4px;border-radius:20px" id="basket">{{basket}}</h5></img></a>
+  Корзина
+</div>
+</a>
+<a href="{% url 'user:profile' %}">
+<div class="element-search-box">
+  <div style="display: flex;align-items: center;justify-content:center;cursor: pointer;width: 60px" class="atctive_widjet" ><img src="{% static 'images/icons8-user-96.png'%}" height="45px;" width="45px"></img></div>
+  Профиль
+</div>
+</a>
+</div>
+{% endblock %}
+
+{% block navbar %}
+<style type="text/css">
+	.content-box{
+		min-height: 1000px;
+	}
+
+</style>
+{% if user.is_authenticated %}
+
+<div class="left-bar-box">
+<div class="left-bar-top">
+		{% if is_superuser %}
+
+		<a href="http://aptekaopeka.ru/admin/">
+			<div class="element">
+				<h5> Администрирование </h5>
+				<div class="filledbar"></div>
+			</div>
+		</a>
+		<a href="https://app.chatra.io/chat">
+			<div class="element">
+				<h5> Чат </h5>
+				<div class="filledbar"></div>
+			</div>
+		</a>
+		{% endif %}
+		<a href="{% url 'user:profile' %}">
+			<div class="element">
+				<h5> Персональная информация </h5>
+				<div class="filledbar"></div>
+			</div>
+		</a>
+		<a href="{% url 'user:basket' %}">
+			<div class="element">
+				<h5> Корзина </h5>
+				<div class="filledbar"></div>
+			</div>
+		</a>
+		<a href="{% url 'user:confirmation_qr_code' %}">
+			<div class="element">
+				<h5> QR Рецепт</h5>
+				<div class="filledbar"></div>
+			</div>
+		</a>
+		<a href="{% url 'user:new_order' %}">
+			<div class="element">
+				<h5> Оформить заказ </h5>
+				<div class="filledbar"></div>
+			</div>
+		</a>
+		<a href="{% url 'user:curret_orders' %}">
+			<div class="element">
+				<h5> Текущие заказы </h5>
+				<div class="filledbar"></div>
+			</div>
+		</a>
+		<a href="{% url 'user:curret_history' %}">
+			<div class="element">
+				<h5> История заказов </h5>
+				<div class="filledbar"></div>
+			</div>
+		</a>
+		<a href="{% url 'user:logout' %}">
+			<div class="element">
+				<h5> Выйти </h5>
+				<div class="filledbar"></div>
+			</div>
+		</a>
+			</div>
+</div>
+{% else %}
+<div class="left-bar-box">
+<div class="left-bar-top">
+
+		<a href="{% url 'user:basket' %}">
+			<div class="element">
+				<h5> Корзина </h5>
+			</div>
+		</a>
+
+
+		<a href="{% url 'user:login' %}">
+			<div class="element">
+				<h5> Войти в личный кабинет </h5>
+			</div>
+		</a>
+			</div>
+</div>
+{% endif %}
+{% endblock %}
+{% block content %}
+{% endblock %}

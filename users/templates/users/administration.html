@@ -1,0 +1,77 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">	
+	<link rel="stylesheet" type="text/css" href="{% static 'base.css' %}">
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<title>hello</title>
+</head>
+<body>
+	<div class="site-box" style="max-width: 1350px;">
+<header>
+<div class="header-box" style="max-width: 1350px;border-bottom: 1px solid black;">
+		<div class="header-left">
+			<div class="logo" style="margin-bottom: 44px;">
+				<img src="{% static 'logo.png'%}" height="80px;" width="90px" >
+			</div>
+	<h2>Администрирование</h2>
+		</div>
+
+		</div>
+
+</header>
+<content>
+	<div class="content-box">
+
+			<div class="left-bar-box " >
+<div class="left-bar-top">
+			<a href="{% url 'user:product_admin' %}">
+			<div class="element">
+				<h5>Продукты</h5>
+			</div>
+			</a>
+			<a href="{% url 'user:product_revievs' %}"> 
+			<div class="element">
+					<h5>Заказы</h5>
+			</div>
+			</a>
+			<a href="{% url 'user:product_revievs_not_processed' %}">
+			<div class="element">
+				<h5>Заказы в процессе</h5>
+			</div>
+			</a>
+			<a href="{% url 'user:product_revievs_processed' %}">
+			<div class="element">
+				<h5>Заказы в ожидании</h5>
+			</div>
+			</a>
+			<a href="{% url 'user:product_revievs_done' %}">
+			<div class="element">
+				<h5>Заказы выполнены</h5>
+			</div>
+			</a>
+</div>
+</div>
+
+		<div class="content">
+
+{% block content %}
+{% endblock %}
+
+		</div>
+	</div>
+</content>
+
+<footer>
+  
+</footer>
+</div>
+</body>
+
+</html>
+

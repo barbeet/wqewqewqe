@@ -1,0 +1,59 @@
+{% extends "users/base_lk.html" %}
+{% block tree_catalog_tree %}
+  <p><a href="{% url 'user:profile' %}" style="color:white;">Профиль </a> > Регистрация </p>
+{% endblock %}
+{% block tree_catalog_name %}
+  <h1 style="color: white">Регистрация </h1><p class="count_product_in_category">  </p>
+{% endblock %}
+{% block content %}
+<style type="text/css">
+	.content{
+		width: 100%;
+		margin: 0;
+		max-width: 100%;
+	}
+</style>
+<div class="other-content" style="display: flex;padding:20px 50px;width: 100%">
+<form method="post">
+{% if form_user.errors %}
+<div class="error" ><h4>{{form_user.errors.username}}</h4></div>
+<div class="error" ><h4>{{ form_user.errors.password2 }}</h4></div>
+{% endif %}
+{% for i in message %}
+<div class="error" ><h4><li>{{i}}</h4></li></div>
+{% endfor %}
+ {% csrf_token %}
+
+<div class="controls"> 
+  <input class="castom-input" placeholder="Номер телефона" type="text" name="username" maxlength="150" autofocus="" required="" id="id_username"> 
+  </div>
+
+<div class="controls"> 
+	<input class="castom-input" placeholder="Пароль" type="password" name="password1" required="" id="id_password1">
+</div>
+
+<div class="controls"> 
+	<input class="castom-input" placeholder="Подтверждение пароля" type="password" name="password2" required="" id="id_password2">
+	</div>
+	<div style="margin: 20px 10px;">
+
+<input type="checkbox" name="сheckbox" required="" id="id_сheckbox"> Я согласен на обработку моих персональных данных.
+</div>
+ <button style="background: #28a815; padding: 5px;color:white;border-radius: 8px;border: 0;padding: 10px 20px;" type="submit">
+ <h4 style="margin: 0">Регистрация</h4></button>
+     <form>
+      <button style=" margin:0 10px;background: #28a815; padding: 5px;color:white;border-radius: 8px;border: 0;padding: 10px 20px;" type="button" onclick="window.location.href = 'http://aptekaopeka.ru/accounts/login/';" value="w3docs">  <h4 style="margin: 0">Отмена</h4> </button>
+<small class="test-muted">
+      У вас есть аккаунт? <a class="ml-2" href="{% url 'user:login' %}"> Войти </a>
+    </small>
+    </form>
+<div>
+
+
+</form>
+</div>
+</div>
+<script>
+$(".phone_mask").mask("+7 (999) 999-99-99");
+</script>
+{% endblock %}

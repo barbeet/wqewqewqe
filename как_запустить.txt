@@ -1,0 +1,3 @@
+установить python
+установить pip для пайтона смотрите в файле pip.txt
+запустить из папки apteka - python manage.py runserver

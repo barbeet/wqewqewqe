@@ -1,0 +1,135 @@
+{% extends "users/base_lk.html" %}
+{% load static %}
+{% block tree_catalog_tree %}
+  <p><a href="{% url 'user:profile' %}" style="color:white;">Профиль </a> > QR Рецепт </p>
+{% endblock %}
+{% block tree_catalog_name %}
+  <h1 style="color: white">QR Рецепт </h1><p class="count_product_in_category"> </p>
+{% endblock %}
+{% block content %}
+  <style>
+   .go-more1 {
+    transform: rotate(-90deg);
+   }
+   .go-more2 {
+    transform: rotate(-90deg);
+   }
+   .go-more3 {
+    transform: rotate(-90deg);
+   }
+  </style>
+
+<div class="test" style="width: 100%;">
+    {{message}}
+	<div class="ojidaiyt-box">
+<div class="ojidaiyt"><h4 style="margin: 10px 20px;">Запросы на подтверждение Электронного рецепта - в статусе "Ожидает"</h4><img style="transition: 0.7s"  src="{% static 'order_by.png'%}" height="55px;" width="55px" style="margin:0 10px;" class="go-more1" id="go-more1"></img></div>	
+<div class="ojidaiyt-box-element" style="width: 100%">
+  {% if order_in_wait == None %}
+<h4 style="margin: 10px 20px;"> Запросов не найдено</h4>
+  {% endif %}
+{% for order in order_in_wait %}
+<div class="box-recipe" >
+  <div class="box-recipe-inform" style="display: flex; align-items: center;justify-content: space-between;height: 80px"><h5 style="margin: 0 10px">ID запроса: {{order.id}}</h5><h5 style="margin: 0 10px;width: 400px">Имя продукта: {{order}}</h5> <h5 style="margin: 0 10px;width: 200px">количество - {{order.count}}</h5> <h5 style="margin: 0 10px">{{order.date}}</h5>
+</div>
+{% if order.comment != None %}
+<div style="width: 98%;height: 50px;">
+ <h5 style="margin: 0 10px;width: 200px;color:red"> Коментарий: {{order.comment}}</h5>
+  </div>
+  {% endif %}
+</div>
+
+{% endfor %}
+</div>
+</div>
+
+<div class="odobreno-box">
+<div class="odobreno"><h4 style="margin: 10px 20px;">Запросы на подтверждение Электронного рецепта - "Одобрено"</h4><img style="transition: 0.7s"  src="{% static 'order_by.png'%}" height="55px;" width="55px" style="margin:0 10px;" class="go-more3" id="go-more2"></img></div>	
+<div class="odobreno-box-element" style="width: 100%">
+    {% if order_in_sucess == None %}
+<h4 style="margin: 10px 20px;"> Запросов не найдено</h4>
+  {% endif %}
+{% for order in order_in_sucess %}
+<div class="box-recipe" >
+  <div class="box-recipe-inform" style="display: flex; align-items: center;justify-content: space-between;height: 80px"><h5 style="margin: 0 10px">ID запроса: {{order.id}}</h5><h5 style="margin: 0 10px;width: 400px">Имя продукта: {{order}}</h5> <h5 style="margin: 0 10px;width: 200px">количество - {{order.count}}</h5> <h5 style="margin: 0 10px">{{order.date}}</h5>
+</div>
+{% if order.comment != None %}
+<div style="width: 98%;height: 50px;">
+<h5 style="margin: 0 10px;width: 200px;color:red"> Коментарий: {{order.comment}}</h5>
+  </div>
+  {% endif %}
+</div>
+
+{% endfor %}
+</div>
+	</div>
+	<div class="otozvano-box">
+<div class="otozvano"><h4 style="margin: 10px 20px;">Запросы на подтверждение Электронного рецепта -"Не одобрено"</h4><img style="transition: 0.7s"  src="{% static 'order_by.png'%}" height="55px;" width="55px" style="margin:0 10px;" class="go-more3" id="go-more3"></img></div>	
+<div class="otozvano-box-element" style="width: 100%">
+    {% if order_in_notsucess == None %}
+<h4 style="margin: 10px 20px;"> Запросов не найдено</h4>
+  {% endif %}
+{% for order in order_in_notsucess %}
+<div class="box-recipe" >
+  <div class="box-recipe-inform" style="display: flex; align-items: center;justify-content: space-between;height: 80px"><h5 style="margin: 0 10px">ID запроса: {{order.id}}</h5><h5 style="margin: 0 10px;width: 400px">Имя продукта: {{order}}</h5> <h5 style="margin: 0 10px;width: 200px">количество - {{order.count}}</h5> <h5 style="margin: 0 10px">{{order.date}}</h5>
+</div>
+{% if order.comment != None %}
+<div style="width: 98%;height: 50px;">
+<h5 style="margin: 0 10px;width: 200px;color:red">Коментарий: {{order.comment}}</h5>
+  </div>
+  {% endif %}
+</div>
+
+{% endfor %}
+</div>
+	</div>
+  <div class="status-box">
+	<div class="status"><h4 style="margin: 10px 20px;">Товары с рецептом</h4></div>	
+<div class="product-in-basket-js">
+    {% if objects == None %}
+<h4 style="margin: 10px 20px;">Товаров с рецептом не найдено</h4>
+  {% endif %}
+{% for object in objects %}
+<div class="products_recipe_true">
+<div class="product-in-basket" id="{{object.id_product}}" style="width:100%;display: flex;justify-content: space-between;background: transparent;">
+<img src="/media/{{object.product_thumb}}" style="margin:0 20px;" height="120px" width="120px"></a>
+<div class="name-product" style="max-width: 300px;width: 100%;">
+ <a href="/product/{{object.id_product}}"><h4>{{object.name_product}}</h4></a>
+</div>
+<div class="count-controll" style="max-width: 200px;width: 100%;">
+
+	<h4><div class='{{object.id_product}}' >Количество - {{object.product_count}} шт</div></h4>		
+
+	</div>
+	<h4 id="summ_count{{object.id_product}}" style="max-width: 200px;width: 100%;font-weight: normal;">Общая сумма: {{object.pruduct_count_sum}} ₽<h4>
+		  <div class="price_basket" style="display:flex;flex-direction: column;margin-right: 0px;width: 100px;">
+	    {% if object.product_discount == None %}
+  <h5 style="font-weight: normal;margin:-10px auto;">Цена:</h5>
+  <div style="display: flex;align-items: center;flex-direction: column;"><h4 style="font-weight: normal;"> {{object.product_price}} ₽</h4></div>
+  {% else %}
+  <h5 style="font-weight: normal;margin: 0 auto">Цена:</h5>
+  <div class="price_basket_setting" style="display: flex;align-items: center; flex-direction: column;"><h5 style="text-decoration:line-through;font-size: 90%;opacity: 0.5"> {{object.product_price}} ₽</h5> <h4 style="font-weight: normal;"> {{object.product_discount}} ₽</h4></div>
+  {% endif %}
+</div>
+</div>
+<div class="recipe_dowload" style="width: 100%; height: 50px;margin-left: 10px">
+<form method="post" enctype="multipart/form-data" style="display: flex;align-items: center;">
+  {% csrf_token %}
+<h5 style="margin: 0 20px;">Загрузите QR код: -</h5><input type="file" name="image" accept="image/*" required="" id="id_image" value="Загрузить"> 
+<input type="text" style="display: none" name="id_product" required="" id="id_id_product" value="{{object.id_product}}">
+<input type="text" style="display: none" name="count" required="" id="id_count" value="{{object.product_count}}">
+    <button class="submit btn-buy" style="background:#28a815;color:white;border-radius:20px;display:block;margin: 0 100px;height: 25px" type="submit">Отправить</button>
+  </form>
+	</div>
+</div>
+{% endfor %}
+</div>
+</div>
+</div>
+{% endblock %}
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Upload</button>
+  </form>
+
+  <p><a href="{% url 'home' %}">Return to home</a></p>

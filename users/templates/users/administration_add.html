@@ -1,0 +1,11 @@
+{% extends 'users/administration.html'%}
+{% block content%}
+
+<form method="post" style="display: flex;flex-direction: column;width: 100%;" enctype="multipart/form-data">
+	{% csrf_token %}
+{{form}}
+	
+ <button style="background: #28a815; padding: 5px;color:white;border-radius: 8px;border: 0;padding: 10px 20px;" type="submit">
+ <h4 style="margin: 0">Добавить</h4></button>
+</form>
+{% endblock %}

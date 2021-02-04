@@ -1,0 +1,61 @@
+{% extends "users/base_lk.html" %}
+{% block tree_catalog_tree %}
+  <p><a href="{% url 'user:profile' %}" style="color:white;">Профиль </a> > Вход в личный кабинет </p>
+{% endblock %}
+{% block tree_catalog_name %}
+  <h1 style="color: white">Вход в личный кабинет  </h1><p class="count_product_in_category"> </p>
+{% endblock %}
+{% block content %}
+<style type="text/css">
+  .content{
+    min-height: 1000px;
+    height: 100%;
+  }
+</style>
+<div class="other-content" style="padding: 20px 50px">
+<div class="content-section">
+  <form method="POST">
+
+    {% csrf_token %}
+    <p><h4>Вы упешно зарегистрировались, введите пароль и логин для входа в Личный кибинет.</h4></p>
+    {% if form.errors %}
+
+    <p><h4 class="error">Данные введены неправильно</h4></p>
+
+{% endif %}
+
+  <label for="id_username" class="control-label requiredField">
+               <span class="asteriskField"></span>
+                </label> 
+               <div class="controls"> 
+                <input placeholder="Логин" type="text" name="username" autofocus="" maxlength="254" class="textinput textInput castom-input"  required="" id="id_username" style="">
+                 </div> 
+               </div> 
+               <div id="div_id_password" class="control-group"> 
+                <label for="id_password" class="control-label requiredField">
+                <span class="asteriskField"></span> 
+              </label> 
+              <div class="controls"> 
+                <input  placeholder="Пароль" type="password" name="password" class="textinput textInput castom-input" required="" id="id_password"> 
+              </div> 
+        
+
+
+      <button style="background: #28a815; padding: 5px;color:white;border-radius: 8px;border: 0;padding: 10px 20px;" class="btn btn-outline-info" type="submit"><h4 style="margin: 0">Войти</h4></button>
+      <small class="muted-text">
+        <a href="/accounts/password-reset/">Забыли пароль?</a>
+      </small>
+
+  
+  </form>
+  <div class="border-top pt-3">
+    <div style="margin:10px 0;" >
+    <small class="test-muted">
+      У вас нет есть аккаунта? <a class="ml-2" href="{% url 'user:register' %}">Регистрация</a>
+      
+    </small>
+  </div>
+</div>
+</div>
+</div>
+{% endblock %}

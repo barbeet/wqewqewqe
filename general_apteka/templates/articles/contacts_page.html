@@ -1,0 +1,31 @@
+{% extends 'articles/base_nv.html'%}
+{% load static%}
+{% block content %}
+<style type="text/css">
+  .content{
+    flex-direction: column;
+    margin-left: 1.5%;
+    margin-right: 1.5%;
+    padding: 0;
+  }
+</style>
+<h2 style="text-align: left;color: #3790b7;margin-top:0; ">Контакты</h2>
+
+ <h4 style="font-weight: normal;text-indent: 25px;"> По вопросам связанным с оформлением, исполнение заказа вы можете обратиться:</h4>
+ <h4 style="font-weight: normal;text-indent: 25px;"> <a style="" href='tel:+79999999999' >Наш телефон +7 (999) 999-99-99 </a> </h4>
+ <h4 style="font-weight: normal;text-indent: 25px;"> График работы клиентского сервиса: с 9:00 до 21:00</h4>
+ <h4 style="font-weight: normal;text-indent: 25px;"> Круглосуточный прием обращений принимается по адресу: <a href="mailto:apteka@gmail.com">apteka@gmail.com</a>
+
+      </h4>
+<h2 style="text-align: left;color: #3790b7; ">Адресс</h2>
+ <h4 style="font-weight: normal;text-indent: 25px;">Москва, Вишнёвая улица, 5 пр. Стратонавтов, д.15, Лодочная ул., д.7</h4>
+ <script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3A2a26d3dbeea20c42559ac94cba2241e21bfa11b74d5864700ce517cbad2173f6&amp;width=100%25&amp;height=400&amp;lang=ru_RU&amp;scroll=true"></script>
+<h2 style="text-align: left;color: #3790b7; ">Задать вопрос</h2>
+<form class="form-blank" method="post" style="padding: 0 20px 0 40px;max-width: 900px">
+	{% csrf_token %}
+<input class="form-label" type="text" name="name" required="" id="id_name" placeholder="Как к Вам обращаться?">
+<input class="form-label" type="email" name="email" required="" id="id_email" placeholder="E-mail">
+<textarea class="form-label" name="text" cols="40" rows="10" required="" id="id_text" placeholder="Ваш вопрос"></textarea>
+   <button style="background: #28a815; padding: 5px;color:white;border-radius: 8px;border: 0;padding: 10px 20px;" class="btn btn-outline-info" type="submit"><h4 style="margin: 0">Отправить</h4></button>
+</form>
+{% endblock %}

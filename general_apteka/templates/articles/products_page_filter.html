@@ -1,0 +1,110 @@
+{% extends "articles/base_nv.html" %}
+{% load static %}
+{% block tree_catalog_tree %}
+  <p><a href="{% url 'home' %}" style="color:white;">Главная </a> ><a href="http://aptekaopeka.ru/products/"  style="color:white;"> Лекарства </a> > {{filter}}  </p>
+{% endblock %}
+{% block tree_catalog_name %}
+  <h1 style="color: white">{{filter}} </h1><p class="count_product_in_category"> {{count_product}} товаров</p>
+{% endblock %}
+{% block content %}
+  <style>
+   .hover_help{
+    display: inline-block; /* Строчно-блочный элемент */
+    position: relative; /* Относительное позиционирование */
+   }
+   .hover_help:hover::after {
+    content: attr(data-title); /* Выводим текст */
+    position: absolute; /* Абсолютное позиционирование */
+    left: 100%;  /* Положение подсказки */
+    z-index: 1; /* Отображаем подсказку поверх других элементов */
+    background: rgba(255,255,230,0.9); /* Полупрозрачный цвет фона */
+    border-radius: 10px;
+    font-weight: initial;
+    font-family: Arial, sans-serif; /* Гарнитура шрифта */
+    font-size: 11px; /* Размер текста подсказки */
+    padding: 5px 10px; /* Поля */
+    border: 1px solid #333; /* Параметры рамки */
+    color:black;
+   }
+  </style>
+<style type="text/css">
+  .content{
+    flex-direction: column;
+    margin-right: 0;
+  }
+</style>
+<div class="filter-box">
+  <h2 class="search_product_in_category" id="{{filter}}" style="text-align: left;color: #3790b7; ">{{filter}}</h2>
+  <div class="filter">
+  <div class="filter-left">
+    <div class="filter-element"><h5> Сортирвать по: </h5></div>
+    <div class="filter-element"><button style="padding:0;display: flex;align-items: center;  cursor: pointer;background: transparent;" type="button" class="btn-filter-name btn-filter  btn-success " id="oreder_by_name_+"><h4 style="margin: 0 10px 0 0;">Названию</h4><img class="go_more" style="transition: 0.7s" id="img-filter" src="{% static 'order_by.png'%}" height="35px;" width="35px"></img></button></div>
+    <div class="filter-element"><button  style="padding:0;display: flex;align-items: center;cursor: pointer;background: transparent;" type="button" class="btn-filter-price btn-filter btn-success " id="oreder_by_price_+"><h4 style="margin: 0 10px 0 0;">Цене</h4> <img style="transition: 0.7s" id="img-filter2" src="{% static 'order_by.png'%}" height="35px;" width="35px"></img></button></div>
+    <div class="filter-element"><button  style="padding:0;display: flex;align-items: center;cursor: pointer;background: transparent;" type="button" class="btn-filter-watches btn-filter btn-success " id="oreder_by_watches_+"><h4 style="margin: 0 10px 0 0;">Популярности</h4> <img style="transition: 0.7s" id="img-filter3" src="{% static 'order_by.png'%}" height="35px;" width="35px"></img></button></div>
+  </div>  
+  <div class="filter-right">
+    <div class="filter-element"><h5> В наличии         </h5> <input class="chck btn-filter" id="checkbox1" type="checkbox"></div>
+    <div class="filter-element"><h5> Со скидкой        </h5> <input class="chck btn-filter" id="checkbox2" type="checkbox"></div>
+    <div class="filter-element"><h5> Без рецепта       </h5> <input class="chck btn-filter" id="checkbox3" type="checkbox"></div>
+  </div>
+  </div>    
+</div>
+<div class="content2">
+{% for object in objects_list %}
+<div class="product-box">
+  {% if object.recipe %}
+  <div class="only-recept"></img><h5>По рецепту</h5></div>
+  {% endif  %}
+    <div class="product">
+  <a href="/product/{{object.id}}" style="width: 100%;">
+  <div class="link">
+    <div class="product_image">
+      {% if object.thumb.url != None %}
+      <img style="height:170px;width:170px" src="{{object.thumb.url}}" alt="">
+      {% endif %}
+    </div>
+      
+      
+  
+  <h5 style="text-align: left;width: 100%;color: #3790b7;">{{object.name}}</h5> 
+</div>
+</a>
+  <h5 style="text-align: left;width: 100%;">{{object.company}}</h5> 
+  <div class="price">
+    {% if object.discount == None %}
+  <h5 style="font-weight: normal;">Цена:</h5>
+  <div style="display: flex;align-items: center;"><h3> {{object.price}}</3> <h4 style="font-weight: normal;margin-left:-3px; ">₽</h4></div>
+  {% else %}
+  <h5 style="font-weight: normal;">Цена:</h5>
+  <div style="display: flex;align-items: center;"><h5 style="text-decoration:line-through;font-size: 90%;opacity: 0.5"> {{object.price}} ₽</h5> <h3> {{object.discount}} </h3><h4 style="font-weight: normal;margin-left:-3px; ">₽</h4></div>
+  {% endif %}
+  </div>  
+  <div class="buy-options">
+<button style="padding:0" type="button" class="btn btn-buy btn-success btn-lg btn-block{{object.id}}" id="+:{{object.id}}"><h4>Купить</h4></button>
+<button style="padding:0" type="button" class="btn btn-buy btn-success btn-lg btn-{{object.id}}" id="-:{{object.id}}"><h4>-1</h4></button>
+<h4 style="text-align: center;"><div class="{{object.id}} btn-{{object.id}}"></div></h4> 
+<button style="padding:0" type="button" class="btn btn-buy btn-success btn-lg btn-{{object.id}}" id="+:{{object.id}}"><h4>+1</h4></button>
+<a class="btn-{{object.id}}" href="http://aptekaopeka.ru/accounts/profile/new_order/"><button style="padding:0" data-title="Оформить заказ" type="button" class=" btn-buy btn-success btn-lg btn-{{object.id}} hover_help"><img src="{% static 'order.png'%}" height="42px;" width="42px"></img></button></a>
+</div>
+</div>
+</div>
+<style type="text/css">
+  .btn-{{object.id}}{
+    display: none;
+  }
+  .btn-{{object.id}}-active{
+    display: block;
+    width: 50px;
+  }
+</style>
+<script type="text/javascript">
+  $(".btn-block{{object.id}}").click(function(){
+  console.log("click");
+  $(".btn-block{{object.id}}").toggleClass("btn-block-active");
+  $(".btn-{{object.id}}").toggleClass("btn-{{object.id}}-active");
+});
+</script>
+
+  {% endfor %}
+</div>
+{% endblock %}

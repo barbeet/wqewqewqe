@@ -1,0 +1,27 @@
+{% extends 'users/administration.html'%}
+{% block content %}
+<div class="admin_product_box" style="width: 100%;display: flex;flex-direction: column;">
+	<div class="list_product" style="width: 100%;height: 75px;border:1px solid black;margin: 5px;display: flex;align-items: center;padding: 5px;">
+<div class="id_product_admin" style="width: 30px;">ID</div>
+<div class="id_product_name" style="width: 300px;">Имя</div>
+<div class="id_product_category" style="width: 160px;">Категория</div>
+<div class="id_product_quantity" style="width: 150px;">Количество</div>
+<div class="id_product_price" style="width: 120px;">Цена</div>
+<div class="id_product_date_added" style="width: 160px;">Дата добавления</div>
+<div class="id_product_date_added" style="width: 120px;"> 	+ добавить</div>
+</div>
+{% for product in products %}
+<div class="list_product" style="width: 100%;height: 75px;border:1px solid black;margin: 5px;display: flex;align-items: center;padding: 5px;">
+<div class="id_product_admin" style="width: 30px;">{{product.id}}</div>
+<div class="id_product_name" style="width: 300px;">{{product.name}}</div>
+<div class="id_product_category" style="width: 160px;">{{product.category}}</div>
+<div class="id_product_quantity" style="width: 150px;">{{product.quantity}}</div>
+<div class="id_product_price" style="width: 120px;">{{product.price}}</div>
+<div class="id_product_date_added" style="width: 160px;">{{product.date_added}}</div>
+<div class="id_product_date_added" style="width: 40px;height: 40px;background: black;margin: 0 5px;"></div>
+<div class="id_product_date_added" style="width: 40px;height: 40px;background: black"></div>
+<div class="id_product_date_added" style="width: 40px;height: 40px;background: black;margin: 0 5px;"></div>
+</div>
+{% endfor %}
+</div>
+{% endblock %}

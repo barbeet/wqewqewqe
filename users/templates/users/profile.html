@@ -1,0 +1,57 @@
+{% extends "users/base_lk.html" %}
+{% block tree_catalog_tree %}
+  <p><a href="{% url 'user:profile' %}" style="color:white;">Профиль </a> > Персональная информация </p>
+{% endblock %}
+{% block tree_catalog_name %}
+  <h1 style="color: white">Персональная информация </h1><p class="count_product_in_category"></p>
+{% endblock %}
+{% block content %}
+<style type="text/css">
+	.content{
+		flex-direction: column;
+		margin: 0 20px;
+		min-height: 1000px;
+		height: 100%;
+	}
+	.controls{
+		width: 300px;
+		background: transparent;
+	}
+	.input_profile{
+		border-radius: 0;
+		background: white;
+		width: 100%;
+		max-width: 400px;
+		padding: 10px 15px;
+	}
+</style>
+<form class="form-blank" method="post" style="width: 100%;max-width: 100%;height: 700px">
+ {% csrf_token %}
+ <div style='display: flex;height: 100%'>
+<div style="width: 50%;height: 100%">
+<label style="margin: 10px 0;" for="id_first_name">Имя:</label>
+<div style="margin: 10px 0;"> <input class="input_profile" type="text" name="first_name" value="{{user.first_name}}" required="" id="id_first_name">
+	</div>
+<label style="margin: 10px 0;" for="id_last_name">Фамилия:</label>
+<div style="margin: 10px 0;"> <input class="input_profile" type="text" name="last_name" value="{{user.last_name}}" required="" id="id_last_name">
+	</div>
+<label style="margin: 10px 0;" for="id_patronymic">Отчество:</label>
+<div style="margin: 10px 0;"> <input class="input_profile" type="text" name="patronymic" value="{{user.profile.patronymic}}"  required="" id="id_patronymic">
+	</div>
+</div>
+<div style="width: 50%;height: 100%">
+<label style="margin: 10px 0;" for="id_phone">Телефон:</label>
+<div style="margin: 10px 0;"> <input class="input_profile phone_mask" type="text" name="phone" value="{{user.profile.phone}}" required="" id="id_phone">
+	</div>
+<label style="margin: 10px 0;" for="id_email">Email:</label>
+<div style="margin: 10px 0;"> <input class="input_profile" type="email" name="email" value="{{user.email}}" required="" id="id_email">
+</div>
+</div>
+</div>
+<h4>Внимание проверьте правильность введенных данных, для избежания проблем в оформлении заказа!</h4>
+   <button style="background: #28a815; padding: 5px;color:white;border-radius: 8px;border: 0;padding: 10px 20px;width: 100%;margin: 15px 0;" class="btn btn-outline-info" type="submit"><h4 style="margin: 0">Редактировать</h4></button>
+</form>
+<script>
+$(".phone_mask").mask("+7 (999) 999-99-99");
+</script>
+{% endblock %}

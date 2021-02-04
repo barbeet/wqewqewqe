@@ -1,0 +1,69 @@
+{% extends "users/base_lk.html" %}
+{% block tree_catalog_tree %}
+  <p><a href="{% url 'user:profile' %}" style="color:white;">Профиль </a> > История заказов </p>
+{% endblock %}
+{% block tree_catalog_name %}
+  <h1 style="color: white"> История заказов</h1><p class="count_product_in_category"></p>
+{% endblock %}
+{% block content %}
+
+<div class="status-box" style="width: 100%;">
+<div class="status"><h4 style="margin: 0 20px">Заказы в статусе "Выполнены"</h4></div>
+	{% if message != '' %}
+	<div class="message" style="display: flex;width: 100%;"><h4 style="margin: 10px 20px;align-items: left"> Заказов не найдено </h4></div>
+	{% endif %}
+{% for i in order_in_the_history %}
+<div class="order">
+<div class="order-inform">
+<h4>Заказ №{{i.id}} от {{i.date_add_order}}</h4> 
+<h4>Сумма у оплате: {{i.sum_all}} руб</h4>
+<h4>Тип доставки: {{i.method_of_obtaining}}</h4>
+<h4>Способ оплаты: {{i.payment_method}}</h4>
+<h4>Адресс аптеки: {{i.address}}</h4>
+<h4>Ваши контакты: {{i.contact}}</h4>
+<h4>Товары в заказе: </h4>
+<h4>{{i.all_product_id_and_count|linebreaks }}</h4>
+</div>
+<div class="order-setting" style="display: flex;justify-content: flex-end;flex-direction: column;align-items: center;min-width: 400px;margin: 20px 0; ">
+	<h4>{{i.date_add_order}}</h4>
+	<input class="order-button" type="button" name="" value="{% if i.status == 'status_3' %} Выполнено {% endif %}">
+	<button class="order_repite order-button" id="{{i.id}}">Повторить заказ</button>
+	</div>
+</div>
+
+{% endfor %}
+</div>
+
+<script type="text/javascript">
+
+	$(".order_delete").on('click', function(){
+		console.log('hello')
+		$.ajax({
+			url: 'http://aptekaopeka.ru/accounts/profile/curret_orders/order_delete/',
+			type: 'get',
+			data:{
+				delete: $(this).attr('id'),
+			},
+			success: function(response){
+			document.getElementById(response.delete).remove();
+
+		}
+		});
+	});
+
+	$(".order_repite").on('click', function(){
+		alert('Ваш заказ был повторен')
+		$.ajax({
+			url: 'http://aptekaopeka.ru/accounts/profile/curret_orders/order_repite/',
+			type: 'get',
+			data:{
+				id: $(this).attr('id'),
+			},
+			success: function(response){
+				
+				location.reload()
+		}
+		});
+	});
+</script>
+{% endblock %}

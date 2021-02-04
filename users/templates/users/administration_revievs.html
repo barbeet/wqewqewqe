@@ -1,0 +1,31 @@
+{% extends 'users/administration.html'%}
+{% block content %}
+<div class="admin_order_box" style="width: 100%;display: flex;flex-direction: column;">
+	<div class="list_order" style="width: 100%;height: 75px;border:1px solid black;margin: 5px;display: flex;align-items: center;padding: 5px;">
+<div class="id_order_admin mg" style="width: 30px;">ID</div>
+<div class="id_order_name mg" style="width: 150px;">Фио</div>
+<div class="id_order_category mg" style="width: 100px;">Продукты</div>
+<div class="id_order_quantity mg" style="width: 100px;">Способ получения</div>
+<div class="id_order_price mg" style="width: 100px;">Оплата</div>
+<div class="id_order_date_added mg" style="width: 100px;">Дата добавления</div>
+<div class="id_order_date_added mg" style="width: 100px;">Сумма цен</div>
+<div class="id_order_date_added mg" style="width: 150px;">Контакты</div>
+<div class="id_product_date_added" style="width: 150px;"> + добавить</div>
+</div>
+{% for order in orders %}
+<div class="list_order" style="width: 100%;height: 75px;border:1px solid black;margin: 5px;display: flex;align-items: center;padding: 5px;">
+<div class="id_order_admin mg" style="width: 30px;">{{order.id}}</div>
+<div class="id_order_name mg" style="width: 150px;">{{order.fio}}</div>
+<div class="id_order_category mg" style="width: 100px;">{{order.all_product_id_and_count}}</div>
+<div class="id_order_quantity mg" style="width: 100px;">{{order.method_of_obtaining}}</div>
+<div class="id_order_price mg" style="width: 100px;">{{order.payment_method}}</div>
+<div class="id_order_date_added mg" style="width: 100px;">{{order.date_add_order}}</div>
+<div class="id_order_date_added mg" style="width: 100px;">{{order.sum_all}}</div>
+<div class="id_order_date_added mg" style="width: 150px;">{{order.contact}}</div>
+<div class="id_order_date_added" style="width: 40px;height: 40px;background: black;margin: 0 5px;"></div>
+<div class="id_order_date_added" style="width: 40px;height: 40px;background: black"></div>
+<div class="id_order_date_added" style="width: 40px;height: 40px;background: black;margin: 0 5px;"></div>
+</div>
+{% endfor %}
+</div>
+{% endblock %}

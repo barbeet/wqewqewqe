@@ -1,0 +1,244 @@
+{% extends "articles/base_nv.html" %}
+{% load static %}
+{% block tree_catalog_tree %}
+  <p><a href="{% url 'home' %}" style="color:white;">Главная </a> > <a href="http://aptekaopeka.ru/products/"  style="color:white;">Лекарства </a> > {{product.name}} </p>
+{% endblock %}
+{% block tree_catalog_name %}
+  <h3 style="color: white;">{{product.name}} </h3><p class="count_product_in_category"></p>
+{% endblock %}
+{% block content %}
+<style type="text/css">
+.tabs { width: 100%; padding: 0px; margin: 0 auto; }
+.tabs>input { display: none; }
+.tabs>div {
+    display: none;
+    padding: 12px;
+
+    background: #FFFFFF;
+}
+.tabs>label {
+    display: inline-block;
+    padding: 7px;
+    margin: 0 -5px -1px 0;
+    text-align: center;
+    color: #666666;
+    cursor: pointer;
+}
+.tabs>input:checked + label {
+    color: #000000;
+    border-bottom: 3px solid #781bac;
+    background: #FFFFFF;
+}
+#tab_1:checked ~ #txt_1,
+#tab_2:checked ~ #txt_2,
+#tab_3:checked ~ #txt_3,
+#tab_4:checked ~ #txt_4 { display: block; }
+   .hover_help{
+    display: inline-block; /* Строчно-блочный элемент */
+    position: relative; /* Относительное позиционирование */
+   }
+   .hover_help:hover::after {
+    content: attr(data-title); /* Выводим текст */
+    position: absolute; /* Абсолютное позиционирование */
+    left: 100%;  /* Положение подсказки */
+    z-index: 1; /* Отображаем подсказку поверх других элементов */
+    background: rgba(255,255,230,0.9); /* Полупрозрачный цвет фона */
+    border-radius: 10px;
+    font-weight: initial;
+    font-family: Arial, sans-serif; /* Гарнитура шрифта */
+    font-size: 11px; /* Размер текста подсказки */
+    padding: 5px 10px; /* Поля */
+    border: 1px solid #333; /* Параметры рамки */
+    color:black;
+   }
+</style>
+<style type="text/css">
+	.content{
+		flex-direction: column;
+		margin-right: 0;
+    padding: 0 20px;
+	}
+</style> 
+ <div class="zagolovok" style="display: flex;align-items: center;justify-content: space-between;">
+    {% if product.thumb.url != None %}
+  <div class="product_image"><img style="height:200px;width:200px" src="{{product.thumb.url}}" alt=""></div>
+    {% endif %}
+   <div class='column'>
+    <h4 style="font-weight: normal"> В упаковке {{product.count}} таблеток   </h4>
+    <h4>{{ product.company }} </h4>
+ </div>
+ <div style="min-width:222px;display: flex;flex-direction: column;padding: 10px 10px 0 10px ;border: 1px solid #ddd;box-shadow: 0 0 4px 0 rgba(0,0,0,.1);">  
+  <h5 style="margin: 5px;font-weight: normal">Цена:</h5>
+  {% if product.discount == None %}
+  <h3 style="margin: 5px;color:#3790b7;"> {{product.price}} ₽</h3>
+  {% else %}
+  <h5 style="text-decoration:line-through;font-size: 90%;opacity: 0.5; margin: 5px"> {{product.price}} ₽</h5>
+  <h3 style="margin:5px;color: #3790b7;">{{product.discount}} ₽</h3>
+  {% endif %}
+  <div class="buy-options">
+<button style="padding:0;background: #28a815;border-radius:20px;color:white;" type="button" class="btn btn-buy btn-success btn-lg btn-block{{product.id}}" id="+:{{product.id}}"><h4>Купить</h4></button>
+<button style="padding:0" type="button" class="btn btn-buy btn-success btn-lg btn-{{product.id}}" id="-:{{product.id}}"><h4>-1</h4></button>
+<h4 style="text-align: center;"><div class="{{product.id}} btn-{{product.id}}">0</div></h4> 
+<button style="padding:0" type="button" class="btn btn-buy btn-success btn-lg btn-{{product.id}}" id="+:{{product.id}}"><h4>+1</h4></button>
+<a class="btn-{{product.id}}" href="http://aptekaopeka.ru/accounts/profile/new_order/"><button style="padding:0" data-title="Оформить заказ" type="button" class=" btn-buy btn-success btn-lg btn-{{product.id}} hover_help"><img src="{% static 'order.png'%}" height="42px;" width="42px"></img></button></a>
+</div>
+</div>
+
+<style type="text/css">
+  .btn-{{product.id}}{
+    display: none;
+  }
+  .btn-{{product.id}}-active{
+    display: block;
+    width: 50px;
+  }
+</style>
+<script type="text/javascript">
+  $(".btn-block{{product.id}}").click(function(){
+  console.log("click");
+  $(".btn-block{{product.id}}").toggleClass("btn-block-active");
+  $(".btn-{{product.id}}").toggleClass("btn-{{product.id}}-active");
+});
+</script>
+</div>
+<div class="other">
+<div class="tabs">
+    <input type="radio" name="inset" value="" id="tab_1" checked>
+    <label for="tab_1"><h4>Информация о товаре</h4></label>
+
+    <input type="radio" name="inset" value="" id="tab_2">
+    <label for="tab_2"><h4>Способы применения</h4></label>
+
+    <input type="radio" name="inset" value="" id="tab_3">
+    <label for="tab_3"><h4>Отзывы</h4></label>
+
+    <input type="radio" name="inset" value="" id="tab_4">
+    <label for="tab_4"><h4>Аналоги</h4></label>
+
+    <div id="txt_1" style="border-top:1px solid #ddd;">
+        <h3 style="color: #3790b7;">Информация о товаре </h3>
+        <h4 style="color: #3790b7;">Показания </h4>
+        <h4 style="font-weight: normal;"> {{product.testimony|safe}} </h4>
+        {% for product_discription in product_discriptions %}
+        <h4 style="color: #3790b7;">{{product_discription.title|safe}} </h4>
+        <h4 style="font-weight: normal;"> {{product_discription.text|safe}} </h4>
+        {% endfor %}
+        </div>
+    <div id="txt_2" style="border-top:1px solid #ddd;">
+        <h4 style="color: #3790b7;"> Способы применения </h4>
+        <h4 style="font-weight: normal;"> {{product.application_methods|safe}} </h4>
+    </div>
+    <div id="txt_3" style="border-top:1px solid #ddd;">
+     
+        <h4 style="color: #3790b7;">  Отзывы </h4>
+        {% if product.comments %}
+  {% else %}
+  <style type="text/css">.comments-none{display:none;}</style>
+  <h4 style="margin: 10px auto">К этому товару отзывы были отключены.</h4>
+{% endif %}
+        <div class="comments-none">
+<div class="reviews-create">
+
+   {% if user.is_authenticated %}
+  <form  style="border: 1px solid #ddd;box-shadow: 0 0 4px 0 rgba(0,0,0,.1);display: flex;justify-content: center;margin:10px;border-radius:10px;padding: 10px;text-align: center;flex-direction: column;" class="form-reviews" action="" method="post">
+  
+
+{%csrf_token%}
+    <label for="id_name" style="margin: 20px 0;">Заголовок отзыва:</label><input class="form-label" placeholder="Имя" type="text" name="heading_reviev" maxlength="100" required="" id="id_name">
+      <label for="id_name" style="margin: 20px 0;">Текст отзыва</label><textarea placeholder="Напишите свой отзыв или пожелание" name="text_reviev" cols="40" rows="10" required="" id="id_body"></textarea>
+  <button class="submit btn-buy" style="background:#28a815;color:white;border-radius:20px;display:block;margin-top:20px;" type="submit">Отправить</button>
+    <label style="text-align:left;margin:0px;padding:30px;font-family: Arial;font-weight: normal;">Внимание! Отзывы добавляются после проверки администратором.</label>
+  </form>
+</div>
+{% else %}
+<h4 style="font-weight: normal;">Только авторизированны пользователи могут оставить комментарий</h4>
+{% endif %}
+
+<br>
+<br>
+<h2 class="h1-text-color" style="text-align:center;border-top:1px solid #ddd;padding-top:20px;">Отзывы</h2>
+<br style="color: #ddd;">
+<div style="    display: flex;  text-align: center;flex-direction: column-reverse;"  class="reviews-box">
+{% for review in revievs %}
+<div style="    display: flex;justify-content: center;  border:1px solid #3790b7;margin:10px;padding: 10px;text-align: center;flex-direction: column;" class="reviews">
+      <div class="review-box" style="display: flex;justify-content: space-between; width: 100%;">
+    <h5 class="h1-text-color" style="margin: 0 10px;text-align: left;"> Логин: {{review.login}}</h5>
+
+  <h5 style="margin: 0;text-align: left;">{{review.date_added}}</h5>
+    </div>
+
+<h5 style="margin: 20px 10px;text-align: left; width: 100%;" >{{review.heading_reviev}}</h5>
+
+ <div style="margin: 0 10px;min-height: 50px"> <h4 style="margin: 0;text-align: left; width: 100%;height:100%;font-weight: normal;">{{review.text_reviev}}<h4>
+ </div>
+
+</div>
+{% endfor %}
+</div>
+         </h4>  
+         </div>
+</div> 
+</div> 
+    <div id="txt_4" style="border-top:1px solid #ddd;">
+        <h4 style="color: #3790b7;">  Аналоги - {{product.active_substances}} </h4>
+        <div class="content2">
+          {{message|safe}}
+{% for object in objects_list %}
+<div class="product-box">
+  {% if object.recipe %}
+  <div class="only-recept"><img src="{% static 'recept.png'%}" height="42px;" width="42px"></img><h5>По рецепту</h5></div>
+  {% endif  %}
+    <div class="product">
+  <a href="/product/{{object.id}}">
+  <div class="link">
+    <div class="product_image">
+      {% if object.thumb.url != None %}
+      <img style="height:170px;width:170px" src="{{object.thumb.url}}" alt="">
+      {% endif %}
+    </div>
+      
+      
+  
+  <h4 style="text-align: left;width: 100%;color: #3790b7;">{{object.name}}</h4> 
+</div>
+</a>
+  <h5 style="text-align: left;width: 100%;">{{object.company}}</h5> 
+  <div class="price">
+  <h5>Цена:</h5>
+  <h4> {{object.price}} ₽</h4>
+  </div>  
+  <div class="buy-options">
+<button style="padding:0" type="button" class="btn btn-buy btn-success btn-lg btn-block{{object.id}}" id="+:{{object.id}}"><h4>Купить</h4></button>
+<button style="padding:0" type="button" class="btn btn-buy btn-success btn-lg btn-{{object.id}}" id="-:{{object.id}}"><h4>-1</h4></button>
+<h4 style="text-align: center;"><div class="{{object.id}} btn-{{object.id}}">1</div></h4> 
+<button style="padding:0" type="button" class="btn btn-buy btn-success btn-lg btn-{{object.id}}" id="+:{{object.id}}"><h4>+1</h4></button>
+<button style="padding:0" type="button" class="btn btn-buy btn-success btn-lg btn-{{object.id}}" id="+:{{object.id}}"><img src="{% static 'order.png'%}" height="42px;" width="42px"></img></button>
+</div>
+</div>
+</div>
+<style type="text/css">
+  .btn-{{object.id}}{
+    display: none;
+  }
+  .btn-{{object.id}}-active{
+    display: block;
+    width: 50px;
+  }
+</style>
+<script type="text/javascript">
+  $(".btn-block{{object.id}}").click(function(){
+  console.log("click");
+  $(".btn-block{{object.id}}").toggleClass("btn-block-active");
+  $(".btn-{{object.id}}").toggleClass("btn-{{object.id}}-active");
+});
+</script>
+
+  {% endfor %}
+
+</div>
+</h4>
+</div>
+</div>
+</div>
+</h4>
+{% endblock %}

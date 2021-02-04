@@ -1,0 +1,325 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">	
+	<link rel="stylesheet" type="text/css" href="{% static 'base.css' %}">
+	<script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	<script src="https://silverweb.by/wp-content/themes/consultix/js/jquery.maskedinput.min.js"></script>
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:700,300,300italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<script type="text/javascript" src="{% static 'js/jmpress.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/jquery.jmslideshow.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/modernizr.custom.48780.js' %}"></script>
+	<noscript>
+			<style>
+			.step {
+				width: 100%;
+				position: relative;
+			}
+			.step:not(.active) {
+				opacity: 1;
+				filter: alpha(opacity=99);
+				-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(opacity=99)";
+			}
+			.step:not(.active) a.jms-link{
+				opacity: 1;
+				margin-top: 40px;
+			}
+			</style>
+		</noscript>
+	<title>Аптека Опека</title>
+<script>
+    (function(d, w, c) {
+        w.ChatraID = 'RWsPQ9HimKMLft3WQ';
+        var s = d.createElement('script');
+        w[c] = w[c] || function() {
+            (w[c].q = w[c].q || []).push(arguments);
+        };
+        s.async = true;
+        s.src = 'https://call.chatra.io/chatra.js';
+        if (d.head) d.head.appendChild(s);
+    })(document, window, 'Chatra');
+</script>
+</head>
+{% csrf_token %}
+<body>
+	<div class="basket-vidjet">
+		<div class="main_basket">
+			<h4 style="margin: auto 10px;">Корзина</h4>
+			<img class="atctive_widjet" src="{% static 'x-mark.png'%}" height="20px;" width="20px" style="margin: 0 5px;cursor: pointer;width: 20px;height: 20px">
+		</div>
+		<div class="basket_objects">
+		</div>
+		<div class="basket_inform_objects">
+			<div class="basket_object_price dffcjs ">
+				<div style="display: flex;">
+					<h5 style="margin: 10px">Сумма:</h5>
+					<h5 style="margin: 0" class="price_in_widjet_basket bwdf summ"></h5>
+				</div>
+				<form>
+	      			<button style=" margin:0 10px;background: #28a815; padding: 5px;color:white;border-radius: 8px;border: 0;padding: 10px 20px;" type="button" onclick="window.location.href = 'http://aptekaopeka.ru/accounts/profile/new_order';" value="w3docs">  <h4 style="margin: 0">Оформить заказ</h4> 
+	      			</button>
+	    		</form>
+			</div> 
+		</div>
+	</div>
+	<div id="zatemnenie" class="close">
+    	<div id="okno">
+    		<h3 class="no_fut back_call"> Обратный звонок 	<a href="#" class="close"><img src="{% static 'x-mark.png' %}"> </a>  </h3>  <br> 
+    		<div class="dfacjc back_call_elem "> <h5 class="no_fut back_call_text"> ФИО         </h5><input id="back_call_elem_fio" class="input_back_call" type="" name=""></div>
+    		<div class="dfacjc back_call_elem "> <h5 class="no_fut back_call_text"> Телефон     </h5><input id="back_call_phone"  class="input_back_call"  type="" name=""></div>
+    		<div class="dfacjc back_call_elem"> <h5 class="no_fut back_call_text" > Комментарий </h5><textarea id="back_call_elem_comment" class="input_back_call" style="height: 60px;" type="" name=""></textarea></div>
+    		 <a href="#" class="close" style="margin-top: 30px;"><button class="send_back_call" type="submit">
+ <h4 style="margin: 0">Перезвоните мне</h4></button></a>
+        </div>
+    </div>
+     
+	<div class="site-box">
+		<header>
+			<div class='message-did '>
+				{{message}}
+			</div>
+			<div class="header-box ">
+				<div class="header-left">
+					<div class="header-element-box">
+						<div class="element-header">
+							<a style="color: black;" href='tel:+79999999999' > <h5> + 7 999 999 99 99 </h5> </a>
+							<div class="anim-elemenet-header-box"> 
+								<div class="anim-elemenet-header"></div>
+							</div>
+						</div>	
+						<div class="element-header">
+							<a style="color: black;" href="#zatemnenie" > <h5>Обратный звонок</h5> </a>
+							<div class="anim-elemenet-header-box"> 
+								<div class="anim-elemenet-header"></div>
+							</div>
+						</div>	
+					</div>
+				</div>
+
+				<div class="header-right">
+						<div class="element-header">
+							<a href="{% url 'home' %}" style="color: black;"><h5>Главная</h5></a>
+							<div class="anim-elemenet-header-box">
+								<div class="anim-elemenet-header"></div>
+							</div>
+						</div>	
+						<div class="element-header">
+							<a href="{% url 'user:basket' %}" style="color: black;"><h5>FAQ</h5></a>
+							<div class="anim-elemenet-header-box"> 
+								<div class="anim-elemenet-header"></div>
+							</div>
+						</div>
+						{% if not user.is_authenticated %}
+						<div class="element-header">
+							<a href="{% url 'user:register' %}" style="color: black;"><h5>Зарегистрироваться</h5></a>
+							<div class="anim-elemenet-header-box">
+								<div class="anim-elemenet-header"></div>
+							</div>
+						</div>	
+						<div class="element-header">
+							<a href="{% url 'user:profile' %}" style="color: black;"><h5>Войти</h5></a>
+							<div class="anim-elemenet-header-box">
+								<div class="anim-elemenet-header"></div>
+							</div>
+						</div>
+						{% else %}
+						<div class="element-header">
+							<a href="{% url 'user:profile' %}" style="color: black;"><h5>{{user.username}}</h5></a>
+							<div class="anim-elemenet-header-box">
+								<div class="anim-elemenet-header"></div>
+							</div>
+						</div>	
+						<div class="element-header">
+							<a href="{% url 'user:logout' %}" style="color: black;"><h5>Выйти</h5></a>
+							<div class="anim-elemenet-header-box">
+								<div class="anim-elemenet-header"></div>
+							</div>
+						</div>
+						{% endif %}
+				</div>
+			</div>
+			<div class="header-search-box">
+					<style>
+					   .hover_help{
+					    display: inline-block; /* Строчно-блочный элемент */
+					    position: relative; /* Относительное позиционирование */
+					   }
+					   .hover_help:hover::after {
+					    content: attr(data-title); /* Выводим текст */
+					    position: absolute; /* Абсолютное позиционирование */
+					    left: 100%;  /* Положение подсказки */
+					    z-index: 1; /* Отображаем подсказку поверх других элементов */
+					    background: rgba(255,255,230,0.9); /* Полупрозрачный цвет фона */
+					    border-radius: 10px;
+					    font-weight: initial;
+					    font-family: Arial, sans-serif; /* Гарнитура шрифта */
+					    font-size: 11px; /* Размер текста подсказки */
+					    padding: 5px 10px; /* Поля */
+					    border: 1px solid #333; /* Параметры рамки */
+					    color:black;
+					   }
+					</style>
+
+					<div class="left-search-box">
+						<a href="{% url 'home' %}">
+							<img src="{% static 'logo.png'%}" height="180px;" width="180px" style="margin-left: -60px" >
+						</a>
+						<div class="element-category category_btn" style="margin: 0 20px;display: flex;align-items: center;padding: 0 10px;justify-content: space-between;">
+							<h3 style="font-weight: 1000;">КАТАЛОГ</h3>
+							<img class="burger_rotate" src="{% static 'images/icons8-menu-96.png'%}" height="25px;" width="25px">
+						</div>
+						<div class="left-search">
+							<img src="{% static 'images/loop.png'%}" width="30px" style="margin-top: -3px;margin-right: 10px;">
+						  	<form action="{% url 'search_results' %}" method="get" class="search">
+						    	<input style="height: 25px;border: 0;padding: 0;padding-left:10px;border-radius: 10px;width: 100%;" name="q" type="text" placeholder=" Поиск товара ">
+						    	<button class="submit" style="height:100%;border-radius: 20px;padding:0 20px;background: #b2f765;border:0px;" type="submit">
+						    		<h5 style="margin: 0 10px;">Поиск</h5>
+						    	</button>
+						    </form>
+						</div>
+					</div>
+
+					<div class="right-search-box">	
+						<a href="{% url 'products' %}">
+							<div class="element-search-box">
+								<div style="display: flex;align-items: center;justify-content:center;cursor: pointer;width: 60px" class="atctive_widjet1" >
+									<img src="{% static 'images/icons8-pill-96.png'%}" height="35px;" width="35px"></img>
+								</div>
+						  		<p class="atctive_widjet_text">Товары</p>
+							</div>
+						</a>
+						<a href="{% url 'user:curret_orders' %}">
+							<div class="element-search-box">
+								<div style="display: flex;align-items: center;justify-content:center;cursor: pointer;width: 60px" class="atctive_widjet" >
+									<img src="{% static 'images/icons8-box-96.png'%}" height="35px;" width="35px"></img>
+								</div>
+					  			<p class="atctive_widjet_text">Заказы</p>
+							</div>
+						</a>
+						<a href="{% url 'user:basket' %}">
+							<div class="element-search-box">
+								<a style="display: flex;align-items: center;cursor: pointer;width: 60px" class="atctive_widjet">
+									<img src="{% static 'basket.png'%}" height="35px;" width="35px">
+										<h5 style="background: yellow; padding: 0 4px;border-radius:20px" id="basket">{{basket}}</h5>
+									</img>
+								</a>
+							<p class="atctive_widjet_text">Корзина</p>
+							</div>
+						</a>
+						<a href="{% url 'user:profile' %}">
+							<div class="element-search-box">
+								<div style="display: flex;align-items: center;justify-content:center;cursor: pointer;width: 60px" class="atctive_widjet" >
+									<img src="{% static 'images/icons8-user-96.png'%}" height="35px;" width="35px"></img>
+								</div>
+								<p class="atctive_widjet_text">Профиль</p>
+							</div>
+						</a>
+					</div>
+			</div>
+			<div class="category_box">
+				<div class="content_category_box_visible">
+					<div class="category_box_left">
+						<div class="header_category_box">
+							<div class="element-category category_btn" style="margin: 0 20px;display: flex;align-items: center;padding: 0 10px;justify-content: space-between;">
+							<h2 style="margin: auto 0;">КАТАЛОГ</h2>
+						</div>
+						</div>
+						<div class="content_category_box">
+							{% for i in catalogs %}
+								<div class="elenemt_catalog elenemt_catalog_{{i.id}}" id="{{i.id}}">
+									<p class="catalog">{{i.catalog}}</p>
+								</div>
+							{% endfor %}
+						</div>
+					</div>
+					<div class="category_box_right">
+						<div class="header_category_box" style="display: flex; align-items: center;background: transparent;border-bottom:1px solid silver">
+						  	<form action="{% url 'search_results' %}" method="get" class="search" style="margin-left: 20px;max-width: 100%;padding: 0 10px;">
+						    	<input style="height: 25px;border: 0;padding: 0;padding-left:10px;border-radius: 10px;width: 100%;" name="q" type="text" placeholder=" Поиск ">
+						    	<button class="submit" style="height:100%;border-radius: 20px;padding:0 20px;background: #b2f765;border:0px;" type="submit">
+						    		<h5 style="margin: 0 10px;">Поиск</h5>
+						    	</button>
+						    </form>
+						</div>
+						<div class="content_category_box content_category_box_right">
+							{% for i in categorys %}
+								{% if i.catalog != None %}
+								<div class="content_category_element {{i.catalog.id}}_category_id" id="{{i.catalog.id}}_category_id">
+									<a href="/products/filter/{{i.category}}" class="{{i.catalog}} element-category-catalog"><p>{{i.category}}</p></a>
+								</div>
+								{% endif %}
+							{% endfor %}
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+		<content>
+			<div class="tree_catalog">
+				{% block tree_catalog %}
+				{% endblock %}
+  			</div>
+			<div class="content-box" >
+
+				{% block navbar %}
+				{% endblock %}
+				<div class="content">
+
+					{% block content %}
+					{% endblock %}
+
+				</div>
+			</div>
+		</content>
+
+		<div class="line" style="height:50px;width: 100%;background: #26963a;;margin-top:70px"></div>
+		<footer>
+			<div class="footer">
+		    	<div class="footer-left">
+		    		<div class="logo2">
+			          	<a href="{% url 'home' %}"><img style="margin-right: 10px;height:70px;" src="{%static 'logo.png'%}"></a>
+			          	<h4>© 2020, apteka.com</h4>
+		          	</div>
+		        </div>
+		        <div class="footer-center">
+		        </div>
+		        <div class="footer-right">
+		            <div class="footer-right-menu-item">
+		        		<h5 style="text-align:right">E-Mail</h5>
+		          		<h4> apteka@gmail.com</h4>
+		      		</div>
+		      		<br>
+		      		<div class="footer-right-menu-item">
+		        		<h5>ВРЕМЯ РАБОТЫ СЛУЖБЫ ПОДДЕРЖКИ:</h5>
+		        		<h4>ПН-ПТ: 9:00 - 21:00</h4>
+					</div>
+		      	</div>
+			</div>
+		</footer>
+	</div>
+</body>
+<script type="text/javascript">
+	$('.category_btn').click(function(){
+	$('.burger_rotate').toggleClass('burger_rotate-active')
+	$('.category_box').toggleClass('category_box-active');
+	$('.content_category_box_visible').toggleClass('content_category_box_visible-active')
+	$('.tree_catalog').toggleClass('tree_catalog-active')
+
+});
+</script>
+<script src="{% static 'js_click.js' %}"></script>
+<script src="{% static 'ajax.js' %}"></script>
+<script type="text/javascript">
+	$('.atctive_widjet').click(function(){
+  $('.basket-vidjet').toggleClass('basket-vidjet-active');
+});
+</script>
+</html>
+

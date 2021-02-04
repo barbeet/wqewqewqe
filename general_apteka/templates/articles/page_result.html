@@ -1,0 +1,101 @@
+{% extends "articles/base.html" %}
+{% block navbar %}
+<div class="left-bar-box">
+<div class="left-bar-top">
+			<div class="element">
+				<a href="/products/"> <h5>Все</h5>
+			</a>
+			</div>
+			<div class="element">
+				<a href="/products/filter/Прочее"> <h5>Биологические активные добавки (БАД)</h5>
+			</a>
+			</div>
+			<div class="element">
+				<a href="/products/filter/hello"> <h5>Средства при изжоге</h5>
+			</a>
+			</div>
+			<div class="element">
+				<a href="/products/filter/hello"> <h5>Глазные средства</h5>
+			</a>
+			</div>
+			<div class="element">
+				<a href="/products/filter/hello"> <h5>Противодиарейные средства</h5>
+			</a>
+			</div>
+			<div class="element">
+				<a href="/products/filter/hello"> <h5>Слабительные средства</h5>
+			</a>
+			</div>
+			<div class="element">
+				<a href="/products/filter/hello"> <h5>Средства лечения заболеваний печени </h5>
+			</a>
+			</div>
+			<div class="element">
+				<a href="/products/filter/hello"> <h5>Средства при кашле</h5>
+			</a>
+			</div>
+			<div class="element">
+				<a href="/products/filter/hello"> <h5>Иммуномодулирующие средства </h5>
+			</a>
+			</div>
+			<div class="element">
+				<a href="/products/filter/hello"> <h5>Противовирусные средства е</h5>
+			</a>
+			</div>
+			<div class="element">
+				<a href="/products/filter/hello"> <h5>Мочегонные Средства</h5>
+			</a>
+			</div>
+			<div class="element">
+				<a href="/products/filter/hello"> <h5>Успокаивающие средства</h5>
+			</a>
+			</div>
+			<div class="element">
+				<a href="/products/filter/hello"> <h5>Средства, улучшающие пищеварение </h5>
+			</a>
+			</div>
+			<div class="element">
+				<a href="/products/filter/hello"> <h5>Гомеопатические средства</h5>
+			</a>
+			</div>
+			<div class="element">
+				<a href="/products/filter/hello"> <h5>Противогрибковые средства</h5>
+			</a>
+			</div>
+			<div class="element">
+				<a href="/products/filter/hello"> <h5>Медицинские приборы</h5>
+			</a>
+			</div>
+			<div class="element">
+				<a href="/products/filter/hello"> <h5>Косметические средства</h5>
+			</a>
+			</div>
+			<div class="element">
+				<a href="/products/filter/hello"> <h5>Препараты для лечения геморроя</h5>
+			</a>
+			</div>
+			<div class="element">
+				<a href="/products/filter/1>"> <h5>Противоаллергические средства </h5>
+			</a>
+			</div>
+			<div class="element">
+			<a href="/products/filter/1>"> <h5>Лекарственные средства по назначению врача разных групп </h5>
+			</div>
+			<div class="element">
+			<a href="/products/filter/1>"> <h5>Прочее</h5>
+			</a>
+			</div>
+		</div>
+			<div class="left-bar-bot">
+			</div>
+</div>
+{% endblock %}
+{% block content %}
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Upload</button>
+  </form>
+
+  <p><a href="{% url 'home' %}">Return to home</a></p>
+{% endblock %}

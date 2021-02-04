@@ -1,0 +1,112 @@
+{% extends "users/base_lk.html" %}
+{% load static %}
+{% block tree_catalog_tree %}
+  <p><a href="{% url 'user:profile' %}" style="color:white;">Профиль </a> > Текущие заказы </p>
+{% endblock %}
+{% block tree_catalog_name %}
+  <h1 style="color: white">Текущие заказы  </h1><p class="count_product_in_category">  </p>
+{% endblock %}
+{% block content %}
+  <style>
+   .go-more1 {
+    transform: rotate(0deg);
+   }
+   .go-more2 {
+    transform: rotate(0deg);
+   }
+   .go-more3 {
+    transform: rotate(0deg);
+   }
+  </style>
+  <div class="test" style="width: 100%;">
+  	<div class="ojidaiyt-box">
+<div class="ojidaiyt" ><h4 style="margin: 0 20px">Заказы в статусе "Ожидает"</h4> <img style="transition: 0.7s"  src="{% static 'order_by.png'%}" height="55px;" width="55px" style="margin:0 10px;" class="go-more1" id="go-more1"></img></div>	
+<div class="ojidaiyt-box-element ojidaiyt-box-element-active" style="width: 100%">
+{% if message1 != '' %}
+<h4 style="margin: 10px 20px;"> Заказов не найдено </h4>
+{% endif %}	
+{% for i in order_in_the_pending %}
+<div class="order" >
+<div class="order-inform">
+<h4>Заказ №{{i.id}} от {{i.date_add_order}}</h4> 
+<h4>Сумма у оплате: {{i.sum_all}} руб</h4>
+<h4>Тип доставки: {{i.method_of_obtaining}}</h4>
+<h4>Способ оплаты: {{i.payment_method}}</h4>
+<h4>Адресс аптеки: {{i.address}}</h4>
+<h4>Ваши контакты: {{i.contact}}</h4>
+<h4>Товары в заказе: </h4>
+<h4>{{i.all_product_id_and_count|linebreaks }}</h4>
+</div>
+<div class="order-setting" style="display: flex;justify-content: flex-end;flex-direction: column;align-items: center;min-width: 400px;margin: 20px 0; ">
+	<h4>{{i.date_add_order}}</h4>
+	<input class="order-button" type="button" name="" value="{% if i.status == 'status_2' %}Ожидает{% endif %}">
+	<button class="order_delete order-button" id="{{i.id}}">Отменить заказ</button></a>
+	<button class="order_repite order-button" id="{{i.id}}"> Повторить заказ</button>
+	</div>
+</div>
+{% endfor %}
+</div>
+</div>
+<div class="odobreno-box">
+<div class="odobreno"><h4 style="margin: 0px 20px">Заказы в статусе "В процессе"</h4><img style="transition: 0.7s"  src="{% static 'order_by.png'%}" height="55px;" width="55px" style="margin:0 10px;" class="go-more2" id="go-more2"></img></div>	
+<div class="odobreno-box-element odobreno-box-element-active" style="width: 100%">
+{% if message2 != '' %}
+<h4 style="margin: 10px 20px;"> Заказов не найдено </h4>
+{% endif %}
+{% for i in order_in_the_process %}
+<div class="order" id="{{i.id}}" >
+<div class="order-inform">
+<h4>Заказ №{{i.id}} от {{i.date_add_order}}</h4> 
+<h4>Сумма к оплате: {{i.sum_all}} ₽</h4>
+<h4>Тип доставки: {{i.method_of_obtaining}}</h4>
+<h4>Способ оплаты: {{i.payment_method}}</h4>
+<h4>Адресс аптеки: {{i.address}}</h4>
+<h4>Ваши контакты: {{i.contact}}</h4>
+<h4>Товары в заказе: </h4>
+<h4>{{i.all_product_id_and_count | linebreaks}} </h4>
+</div>
+<div class="order-setting" style="display: flex;justify-content: flex-end;flex-direction: column;align-items: center;min-width: 400px;margin: 20px 0; ">
+	<h4>{{i.date_add_order}}</h4>
+	<input class="order-button" type="button" name="" value="{% if i.status == 'status_1' %} В процессе {% endif %}">
+	<button class="order_delete order-button" id="{{i.id}}">Отменить заказ</button>
+	<button class="order_repite order-button" id="{{i.id}}">Повторить заказ</button>
+	</div>
+</div>
+{% endfor %}
+</div>
+</div>
+</div>
+<script type="text/javascript">
+
+	$(".order_delete").on('click', function(){
+		console.log('hello')
+		$.ajax({
+			url: 'http://aptekaopeka.ru/accounts/profile/curret_orders/order_delete/',
+			type: 'get',
+			data:{
+				delete: $(this).attr('id'),
+			},
+			success: function(response){
+			document.getElementById(response.delete).remove();
+
+		}
+		});
+	});
+
+	$(".order_repite").on('click', function(){
+		alert('Ваш заказ был повторен')
+		$.ajax({
+			url: 'http://aptekaopeka.ru/accounts/profile/curret_orders/order_repite/',
+			type: 'get',
+			data:{
+				id: $(this).attr('id'),
+			},
+			success: function(response){
+				
+				location.reload()
+		}
+		});
+	});
+</script>
+
+{% endblock %}
