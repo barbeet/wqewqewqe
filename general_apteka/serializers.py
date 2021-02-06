@@ -1,20 +1,8 @@
 from rest_framework import serializers
+from .models import Product
 
-class ArticleSerializer(serializers.Serializer):
-    name = serializers.CharField(max_length=100)
-    price = serializers.CharField(max_length=100)
-    discount = serializers.CharField(max_length=100)
-    category = serializers.CharField(max_length=100)
-    company = serializers.CharField(max_length=100)
-    testimony = serializers.CharField(max_length=100)
-    active_substances = serializers.CharField(max_length=100)
-    application_methods = serializers.CharField(max_length=100)
-    date_added = serializers.CharField(max_length=100)
-    count = serializers.CharField(max_length=100)
-    quantity = serializers.CharField(max_length=100)
-    recipe = serializers.CharField(max_length=100)
-    thermobox = serializers.CharField(max_length=100)
-    comments = serializers.CharField(max_length=100)
-    thumb = serializers.CharField(max_length=100)
-    sales = serializers.CharField(max_length=100)
-    watches = serializers.CharField(max_length=100)
+
+class ProductSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Product
+        fields= '__all__'

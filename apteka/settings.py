@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_summernote',
+    'api_apteka',
     'rest_framework',
 ]
 
@@ -118,3 +119,5 @@ STATICFILES_DIRS = [
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
+PROJECT_PATH = os.path.abspath(os.path.dirname(__file__))
+STATIC_ROOT = os.path.join(PROJECT_PATH, "static")

@@ -9,7 +9,7 @@ import timeit, time
 from users.views import basket_add, objects_inform, basket_delete,  user_is_anonymous
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .serializers import ArticleSerializer
+
 
 class HomePageView(View):
     def get(self,request):
@@ -391,14 +391,6 @@ def basket_ajax(request):
         if objects['summ'] == 0 and objects['count'] ==0:
             return JsonResponse({'message':'Ваша корзина пуста'})
         return JsonResponse(objects)
-
-
-
-class ProductView(APIView):
-    def get(self, request):
-        articles = Product.objects.all()
-        serializer = ArticleSerializer(articles, many=True)
-        return Response({"articles": serializer.data})
 
 
 def send_back_call(request):

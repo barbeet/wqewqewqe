@@ -21,5 +21,4 @@ urlpatterns = [
     path('ajax/filter', views.ajax_filter, name='ajax-filter'),
     path('basket_ajax/', views.basket_ajax, name='basket_ajax'),
     path('send_back_call/', views.send_back_call, name='send_back_call'),
-    path('products/api/', ProductView.as_view()),
 ]
